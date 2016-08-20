@@ -12,6 +12,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('marketyTestBundle:Default:index.html.twig');
+        return $this->render('marketyTestBundle:Default:default.html.twig');
     }
 }
