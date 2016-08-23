@@ -1,5 +1,5 @@
 markety_test:
-    resource: "@marketyTestBundle/Controller/"
+    resource: "@AppBundle/Controller/DefaultController.php"
     type:     annotation
     prefix:   /
 

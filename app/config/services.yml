@@ -4,6 +4,23 @@ parameters:
 #    parameter_name: value
 
 services:
+    markdown:
+            class: AppBundle\Utils\Markdown
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+    # These are the Twig extensions that create new filters and functions for
+    # using them in the templates
+    app.twig.app_extension:
+        public:    false
+        class:     AppBundle\Twig\AppExtension
+        arguments: ['@markdown', '%app_locales%']
+        tags:
+            - { name: twig.extension }
+
+    app.twig.intl_extension:
+        public: false
+        class:  Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
