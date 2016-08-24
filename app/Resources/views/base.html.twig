@@ -1,6 +1,8 @@
 {#This is the base twig which represents the site template#}
 <!DOCTYPE html>
-<html>
+
+{#TODO language#}
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -13,146 +15,79 @@
 
     <title>{% block title %}Markety{% endblock %}</title>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
     {% block stylesheets %}
-        {# uncomment the following lines to compile SCSS assets with Assetic
-
-            {% stylesheets filter="scssphp" output="css/app.css"
-                "%kernel.root_dir%/Resources/assets/scss/bootstrap-flatly.scss"
-                "%kernel.root_dir%/Resources/assets/scss/font-awesome.scss"
-                "%kernel.root_dir%/Resources/assets/css/*.css"
-                "%kernel.root_dir%/Resources/assets/scss/main.scss"
-            %}
-                <link rel="stylesheet" href="{{ asset_url }}" />
-            {% endstylesheets %}
-        #}
-
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+        {% block stylesheets_custom %} {% endblock %}
     {% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+    {% block javascripts %}
+        <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js') }}"></script>
+        {% block javascripts_custom %} {% endblock %}
+    {% endblock %}
+
+    <style>
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+    </style>
+
 </head>
 
 <body id="{% block body_id %}{% endblock %}">
 
-{% block header %}
-    <header>
-        <div class="navbar navbar-default navbar-static-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="{{ path('homepage') }}">
-                        Symfony Demo
-                    </a>
+    {% block header %}
 
-                    <button type="button" class="navbar-toggle"
-                            data-toggle="collapse"
-                            data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-
-                        {% block header_navigation_links %}
-                            <li>
-                                {#<a href="{{ path('blog_index') }}">#}
-                                    {#<i class="fa fa-home"></i> {{ 'menu.homepage'|trans }}#}
-                                {#</a>#}
-                            </li>
-
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li>
-                                    <a href="{{ path('admin_post_index') }}">
-                                        <i class="fa fa-lock"></i> {{ 'menu.admin'|trans }}
-                                    </a>
-                                </li>
-                            {% endif %}
-                        {% endblock %}
-
-                        {% if app.user %}
-                            <li>
-                                <a href="{{ path('security_logout') }}">
-                                    <i class="fa fa-sign-out"></i> {{ 'menu.logout'|trans }}
-                                </a>
-                            </li>
-                        {% endif %}
-
-                    </ul>
-                </div>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Logo</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Messages</a></li>
+                </ul>
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group input-group">
+                        <input type="text" class="form-control" placeholder="Search..">
+                        <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                  <span class="glyphicon glyphicon-search"></span>
+                </button>
+              </span>
+                    </div>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+                </ul>
             </div>
         </div>
-    </header>
-{% endblock %}
+    </nav>
 
-<div class="container body-container">
+    {% endblock header %}
+
+
+<div class="container text-center">
+
     {% block body %}
-        <div class="row">
-            <div id="main" class="col-sm-9">
-                {% block main %}{% endblock %}
-            </div>
 
-            <div id="sidebar" class="col-sm-3">
-                {% block sidebar %}
-                    {#{{ render_esi(controller('FrameworkBundle:Template:template', {#}
-                        {#'template': 'blog/about.html.twig',#}
-                        {#'sharedAge': 600,#}
-                        {#'_locale': app.request.locale#}
-                    {#})) }}#}
-                {% endblock %}
-            </div>
-        </div>
-    {% endblock %}
+
+    {% endblock body %}
 </div>
 
 {% block footer %}
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div id="footer-copyright" class="col-md-6">
-                    <p>&copy; {{ 'now'|date('Y') }} - The Symfony Project</p>
-                    {#<p>{{ 'mit_license'|trans }}</p>#}
-                </div>
-                <div id="footer-resources" class="col-md-6">
-                    <p>
-                        <a href="https://twitter.com/symfony"><i class="fa fa-twitter"></i></a>
-                        <a href="https://www.facebook.com/SensioLabs"><i class="fa fa-facebook"></i></a>
-                        <a href="https://symfony.com/blog/"><i class="fa fa-rss"></i></a>
-                    </p>
-                </div>
-            </div>
-        </div>
+    <footer class="container-fluid text-center">
+        <p>Footer Text</p>
     </footer>
-{% endblock %}
+{% endblock footer %}
 
-{% block javascripts %}
-    {# uncomment the following lines to combine and minimize JavaScript assets with Assetic
-        {% javascripts filter="?jsqueeze" output="js/app.js"
-            "%kernel.root_dir%/Resources/assets/js/jquery-2.1.4.js"
-            "%kernel.root_dir%/Resources/assets/js/moment.min.js"
-            "%kernel.root_dir%/Resources/assets/js/bootstrap-3.3.4.js"
-            "%kernel.root_dir%/Resources/assets/js/highlight.pack.js"
-            "%kernel.root_dir%/Resources/assets/js/bootstrap-datetimepicker.min.js"
-            "%kernel.root_dir%/Resources/assets/js/main.js" %}
-            <script src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-    #}
-
-    <script src="{{ asset('js/app.js') }}"></script>
-{% endblock %}
-
-{# it's not mandatory to set the timezone in localizeddate(). This is done to
-   avoid errors when the 'intl' PHP extension is not available and the application
-   is forced to use the limited "intl polyfill", which only supports UTC and GMT #}
-<!-- Page rendered on {{ 'now'|localizeddate('long', 'long', null, 'UTC') }} -->
 </body>
 </html>
