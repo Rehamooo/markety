@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 {#TODO language#}
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -16,7 +16,13 @@
     <title>{% block title %}Markety{% endblock %}</title>
 
     {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+        {% stylesheets  '../app/Resources/public/css/app.css'
+        filter='cssrewrite' output='css/markety' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+        {#<link rel="stylesheet" href="{{ asset('css/app.css') }}" />#}
+        <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}" />
+
         {% block stylesheets_custom %} {% endblock %}
     {% endblock %}
 
@@ -25,52 +31,96 @@
         {% block javascripts_custom %} {% endblock %}
     {% endblock %}
 
-    <style>
-        /* Set black background color, white text and some padding */
-        footer {
-            background-color: #555;
-            color: white;
-            padding: 15px;
-        }
-    </style>
-
 </head>
+
+
 
 <body id="{% block body_id %}{% endblock %}">
 
     {% block header %}
 
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
+        <nav class="navbar navbar-default navbar-markety" role="navigation">
+
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Logo</a>
             </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Messages</a></li>
+
+
+
+            <div class="navbar-collapse collapse">
+
+                <ul class="nav navbar-nav navbar-left">
+
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <li><a style="" href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ path('fos_user_profile_show' , {'username':app.user.getUsername()}) }}"> {{ 'navbar.welcome'|trans({'name':app.user.getUsername()}) }}</a></li>
+                        {#<li><a style="" href="{{ path('fos_user_profile_show', {'username':app.user.getUsername()}) }}">{{ 'navbar.profile'|trans }}</a></li>#}
+                    {% endif %}
+                    {% set uri = app.request.uri %}
+                    {% if (not is_granted("IS_AUTHENTICATED_REMEMBERED")) and ('login' not in uri) %}
+                        <li><a id="registerMenu" href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a></li>
+                        <li><a id="loginMenu" href="{{ path('fos_user_security_login') }}" data-remote="false" data-toggle="modal" data-target="#loginModal">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+                    {% endif %}
+
                 </ul>
-                <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group input-group">
-                        <input type="text" class="form-control" placeholder="Search..">
-                        <span class="input-group-btn">
-                <button class="btn btn-default" type="button">
-                  <span class="glyphicon glyphicon-search"></span>
-                </button>
-              </span>
-                    </div>
-                </form>
+
+
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+
+                    <li><a href="{{ path('markety_user_homepage') }}">{{ 'navbar.main'|trans }}</a></li>
+                    <li class="divider"></li>
+
+
                 </ul>
+
+
+
             </div>
-        </div>
-    </nav>
+        </nav>
+    {#<nav class="navbar navbar-inverse">#}
+        {#<div class="container-fluid">#}
+
+            {#<div class="navbar-header">#}
+                {#<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">#}
+                    {#<span class="icon-bar"></span>#}
+                    {#<span class="icon-bar"></span>#}
+                    {#<span class="icon-bar"></span>#}
+                {#</button>#}
+                {#<a class="navbar-brand" href="#">Logo</a>#}
+            {#</div>#}
+
+            {#<div class="collapse navbar-collapse navbar-ex1-collapse" id="myNavbar">#}
+                {#<ul class="nav navbar-nav navbar-right rtl" style="direction: rtl">#}
+                    {#<li><a href="#">Home</a></li>#}
+                    {#<li><a href="#">Messages</a></li>#}
+                {#</ul>#}
+                {#<form class="navbar-form navbar-right" role="search">#}
+                    {#<div class="form-group input-group">#}
+                        {#<input type="text" class="form-control" placeholder="Search..">#}
+                        {#<span class="input-group-btn">#}
+                {#<button class="btn btn-default" type="button">#}
+                  {#<span class="glyphicon glyphicon-search"></span>#}
+                {#</button>#}
+              {#</span>#}
+                    {#</div>#}
+                {#</form>#}
+                {#<ul class="nav navbar-nav navbar-right">#}
+                    {#<li><a href="#"><span class="glyphicon glyphicon-user"></span> My Account</a></li>#}
+
+                    {#{% if app.getUser() %}#}
+                    {#login#}
+                    {#{% else %}#}
+                    {#logout#}
+                    {#{% endif %}#}
+                {#</ul>#}
+            {#</div>#}
+        {#</div>#}
+    {#</nav>#}
 
     {% endblock header %}
 

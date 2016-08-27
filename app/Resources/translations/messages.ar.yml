@@ -1,0 +1,7 @@
+navbar:
+      main: الرئيسية
+      login: تسجيل الدخول
+      logout: تسجيل الخروج
+      register: تسجيل
+      profile: الملف الشخصي
+      welcome: اهلا بك name

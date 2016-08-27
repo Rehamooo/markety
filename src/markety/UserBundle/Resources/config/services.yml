@@ -1,0 +1,4 @@
+services:
+#    markety_user.example:
+#        class: markety\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
