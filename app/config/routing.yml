@@ -1,5 +1,6 @@
 
 
+
 markety_user:
     resource: "@marketyUserBundle/Resources/config/routing.yml"
     prefix:   /

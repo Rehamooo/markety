@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new markety\UserBundle\marketyUserBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new markety\GhadeerBundle\marketyGhadeerBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
