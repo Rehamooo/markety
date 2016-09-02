@@ -1,7 +1,10 @@
-
-
 markety_user:
     resource: "@marketyUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+markety_offer:
+    resource: "@marketyOfferBundle/Controller/"
+    type:     annotation
     prefix:   /
 
 app:
