@@ -48,6 +48,18 @@ abstract class Offer
      */
     protected $priceType;
 
+    /**
+     * @var string
+     * @ORM\Column(name="title", type="string")
+     */
+    protected $title;
+
+    /**
+     * @var string
+     * @ORM\Column(name="canonical_title", type="string")
+     */
+    protected $canonicalTitle;
+
 
     /**
      * @var Location
@@ -248,5 +260,53 @@ abstract class Offer
     public function getPost()
     {
         return $this->post;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Offer
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set canonicalTitle
+     *
+     * @param string $canonicalTitle
+     *
+     * @return Offer
+     */
+    public function setCanonicalTitle($canonicalTitle)
+    {
+        $this->canonicalTitle = $canonicalTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get canonicalTitle
+     *
+     * @return string
+     */
+    public function getCanonicalTitle()
+    {
+        return $this->canonicalTitle;
     }
 }
