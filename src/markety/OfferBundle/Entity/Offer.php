@@ -4,6 +4,7 @@ namespace markety\OfferBundle\Entity;
 
 use AppBundle\Entity\Account;
 use AppBundle\Entity\Post;
+use AppBundle\Entity\Location;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,10 +50,10 @@ abstract class Offer
 
 
     /**
-     * @var City
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
+     * @var Location
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Location")
      */
-    protected $city;
+    protected $location;
 
 
     /**
@@ -178,27 +179,27 @@ abstract class Offer
     }
 
     /**
-     * Set city
+     * Set location
      *
-     * @param \AppBundle\Entity\City $city
+     * @param Location $location
      *
      * @return Offer
      */
-    public function setCity(\AppBundle\Entity\City $city = null)
+    public function setLocation(Location $location = null)
     {
-        $this->city = $city;
+        $this->location = $location;
 
         return $this;
     }
 
     /**
-     * Get city
+     * Get location
      *
-     * @return \AppBundle\Entity\City
+     * @return Location
      */
-    public function getCity()
+    public function getLocation()
     {
-        return $this->city;
+        return $this->location;
     }
 
     /**

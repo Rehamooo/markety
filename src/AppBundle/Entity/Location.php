@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="city")
+ * @ORM\Table(name="location")
  */
-class City
+class Location
 {
     /**
      * @var int
@@ -35,6 +35,14 @@ class City
 
 
     /**
+     * @var LocationType
+     * @ORM\ManyToOne(targetEntity="LocationType")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $locationType;
+
+
+    /**
      * @var double
      * @ORM\Column(name="longitude", type="decimal", nullable=true, precision=9, scale=6 )
      */
@@ -49,13 +57,13 @@ class City
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\City",mappedBy="parent" )
+     * @ORM\OneToMany(targetEntity="Location",mappedBy="parent" )
      */
     protected $children;
 
     /**
-     * @var City
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City",inversedBy="children")
+     * @var Location
+     * @ORM\ManyToOne(targetEntity="Location",inversedBy="children")
      */
     protected $parent;
 
@@ -83,7 +91,7 @@ class City
      *
      * @param string $name
      *
-     * @return City
+     * @return Location
      */
     public function setName($name)
     {
@@ -109,7 +117,7 @@ class City
      *
      * @param string $canonicalName
      *
-     * @return City
+     * @return Location
      */
     public function setCanonicalName($canonicalName)
     {
@@ -133,7 +141,7 @@ class City
      *
      * @param string $longitude
      *
-     * @return City
+     * @return Location
      */
     public function setLongitude($longitude)
     {
@@ -157,7 +165,7 @@ class City
      *
      * @param string $latitude
      *
-     * @return City
+     * @return Location
      */
     public function setLatitude($latitude)
     {
@@ -179,11 +187,11 @@ class City
     /**
      * Add child
      *
-     * @param \AppBundle\Entity\City $child
+     * @param Location $child
      *
-     * @return City
+     * @return Location
      */
-    public function addChild(\AppBundle\Entity\City $child)
+    public function addChild(Location $child)
     {
         $this->children[] = $child;
 
@@ -193,9 +201,9 @@ class City
     /**
      * Remove child
      *
-     * @param \AppBundle\Entity\City $child
+     * @param Location $child
      */
-    public function removeChild(\AppBundle\Entity\City $child)
+    public function removeChild(Location $child)
     {
         $this->children->removeElement($child);
     }
@@ -213,11 +221,11 @@ class City
     /**
      * Set parent
      *
-     * @param \AppBundle\Entity\City $parent
+     * @param Location $parent
      *
-     * @return City
+     * @return Location
      */
-    public function setParent(\AppBundle\Entity\City $parent = null)
+    public function setParent(Location $parent = null)
     {
         $this->parent = $parent;
 
@@ -227,10 +235,31 @@ class City
     /**
      * Get parent
      *
-     * @return \AppBundle\Entity\City
+     * @return \AppBundle\Entity\Location
      */
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Set locationType
+     *
+     * @param \AppBundle\Entity\LocationType $locationType
+     * @return Location
+     */
+    public function setLocationType(LocationType $locationType = null)
+    {
+        $this->locationType = $locationType;
+        return $this;
+    }
+
+    /**
+     * Get locationType
+     * @return LocationType
+     */
+    public function getLocationType()
+    {
+        return $this->locationType;
     }
 }
