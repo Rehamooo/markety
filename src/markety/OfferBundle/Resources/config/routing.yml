@@ -1,0 +1,3 @@
+markety_offer_add:
+    path:   /add
+    defaults:  { _controller: marketyOfferBundle:Management:add }
