@@ -31,7 +31,8 @@
         "twig/extensions": "v1.3.0",
         "ezyang/htmlpurifier": "v4.8.0",
         "symfony/assetic-bundle": "v2.8.0",
-        "friendsofsymfony/user-bundle": "2.0.x-dev"
+        "friendsofsymfony/user-bundle": "2.0.x-dev",
+        "erusev/parsedown": "1.6.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
