@@ -81,12 +81,13 @@
                         <li><a style="" href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
                         <li class="divider"></li>
                         <li><a href="{{ path('fos_user_profile_show' , {'username':app.user.getUsername()}) }}"> {{ 'navbar.welcome'|trans({'name':app.user.getUsername()}) }}</a></li>
+                        <li><a href="{{ path('markety_offer_add') }}"> {{ 'navbar.addService'|trans() }}</a></li>
                         {#<li><a style="" href="{{ path('fos_user_profile_show', {'username':app.user.getUsername()}) }}">{{ 'navbar.profile'|trans }}</a></li>#}
                     {% endif %}
                     {% set uri = app.request.uri %}
                     {% if (not is_granted("IS_AUTHENTICATED_REMEMBERED")) and ('login' not in uri) %}
                         <li><a id="registerMenu" href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a></li>
-                        <li><a id="loginMenu" href="{{ path('fos_user_security_login') }}" data-remote="false" data-toggle="modal" data-target="#loginModal">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+                        <li><a id="loginMenu" href="{{ path('fos_user_security_login') }}" >{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
                     {% endif %}
 
                 </ul>

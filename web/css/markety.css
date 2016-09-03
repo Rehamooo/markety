@@ -23,3 +23,21 @@ footer{
 .navbar-toggle {
     z-index:3;
 }
+.navbar-markety{
+    background-color: #2e6da4;
+    color: white;
+    font-weight: bold;
+}
+
+.grey{
+    background-color: lightgrey;
+}
+
+.white{
+    background-color: white;
+}
+
+.col-sm-3,.col-sm-9{
+    float: right !important;
+    text-align: right;
+}

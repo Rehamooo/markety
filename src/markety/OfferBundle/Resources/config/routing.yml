@@ -1,3 +1,7 @@
 markety_offer_add:
-    path:   /add
+    path:   /new_service_offer
     defaults:  { _controller: marketyOfferBundle:Management:add }
+
+markety_offer_persist:
+    path:   /new_service_offer_add
+    defaults:  { _controller: marketyOfferBundle:Management:persist }

@@ -28,3 +28,16 @@ footer{
     color: white;
     font-weight: bold;
 }
+
+.grey{
+    background-color: lightgrey;
+}
+
+.white{
+    background-color: white;
+}
+
+.col-sm-3,.col-sm-9{
+    float: right !important;
+    text-align: right;
+}

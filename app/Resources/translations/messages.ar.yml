@@ -5,3 +5,4 @@ navbar:
       register: تسجيل
       profile: الملف الشخصي
       welcome: اهلا بك name
+      addService: طلب انجاز خدمة
